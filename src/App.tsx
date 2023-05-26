@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import './App.css';
 
 import {Feedback} from "./components/feedback";
@@ -9,6 +9,8 @@ import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
 import { useGetChatGPT } from './hooks/useGetChatGPT';
 import {Loading} from "./components/feedback/components/Loading";
+import {Card} from "./components/feedback/components/Card";
+import {List} from "./components/feedback/components/List";
 
 function App() {
 
@@ -17,21 +19,82 @@ function App() {
     const {runAsync:runGetAudio} = useGetAudio()
     const {runAsync:runGetChatGPT} = useGetChatGPT()
 
-    const onInflowChange = useCallback((content: string) => {
-        if(content){
-            runGetChatGPT(content).then((res)=>{
-                const {content,emotion, poiInfos, deals} = res||{}
-                // 调用动作
-                if(content){
-                    runGetAudio(content).then((audio:any)=>{
-                        motionWithAudio(emotion,audio)
-                    })
-                }
-                // 聊天窗口展示。。。
-              
-            })
+
+    const [loading, setLoading] = useState<boolean>(false)
+    const [chatResText, setChatResText] = useState<string>('')
+    const [poiList, setPoiList] = useState<any[]>([])
+
+    const [dealList, setDealList] = useState<any[]>([{
+        headImg: '',
+        name: '单人餐法式甜品',
+        limitDes: '周一至周五可用 包间不可用',
+        mainDes: '入口即化，好吃又低脂',
+        price: '45',
+        discount: '0.89',
+        realPrice: '51',
+        salesCount: '128',
+    },{
+        headImg: '',
+        name: '单人餐法式甜品',
+        limitDes: '周一至周五可用 包间不可用',
+        mainDes: '入口即化，好吃又低脂',
+        price: '45',
+        discount: '0.89',
+        realPrice: '51',
+        salesCount: '128',
+    },{
+        headImg: '',
+        name: '单人餐法式甜品',
+        limitDes: '周一至周五可用 包间不可用',
+        mainDes: '入口即化，好吃又低脂',
+        price: '45',
+        discount: '0.89',
+        realPrice: '51',
+        salesCount: '128',
+    }])
+
+    const list = useMemo(() => poiList.length>0 ? poiList:dealList, [poiList, dealList])
+
+    const Slot = () => {
+        if (loading) return <Loading/>
+
+        return (
+            <div>
+                {chatResText && <div>{chatResText}</div>}
+                <List
+                    renderItem={(item, index) => (
+                        <Card info={item}/>
+                    )}
+                    data={list}
+                />
+            </div>
+        )
+    }
+
+    const onInflowChange = useCallback(async (text: string) => {
+        if (!text) return
+
+        try {
+            setLoading(true)
+            const chatRes: any = await runGetChatGPT(text)
+            const {content, emotion, poiInfos, deals} = chatRes || {}
+
+            if (!content) return
+            const audioRes: any = await runGetAudio(content)
+            motionWithAudio(emotion, audioRes)
+
+            setChatResText(content)
+            poiInfos && setPoiList(poiInfos)
+            deals && setDealList(deals)
+            setLoading(false)
+
+        } catch (e: any) {
+            throw new Error(e)
         }
+
     }, [motionWithAudio,runGetAudio,runGetChatGPT])
+
+
 
     return (
         <div className="App">
@@ -41,9 +104,7 @@ function App() {
             }}/>
 
             <div className="Feedback">
-                <Feedback>
-                    <Loading/>
-                </Feedback>
+                {chatResText && <Feedback><Slot/></Feedback>}
             </div>
             <div className="Inflow">
                 <Inflow onChange={onInflowChange}/>

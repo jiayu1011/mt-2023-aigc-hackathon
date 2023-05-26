@@ -1,12 +1,12 @@
-import {memo, ReactNode} from "react";
+import React, {memo, ReactNode} from "react";
 import style from './index.module.scss'
 
-interface Props {
+interface IProps {
     children: ReactNode
 }
 
 
-export const Feedback = memo((props: Props) => {
+export const Feedback: React.FC<IProps> = memo((props) => {
 
     return (
         <div className={style.container}>
