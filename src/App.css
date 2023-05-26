@@ -14,6 +14,8 @@
     right: 0;
     bottom: 0;
     z-index: 1;
+    background-size: cover;
+    background: url("https://p1.meituan.net/travelcube/246f82eb66d59be7047d22172aecef952050592.png");
 }
 
 .Person {
@@ -31,12 +33,10 @@
 }
 
 .Inflow {
-    width: 100vw;
-    background: red;
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: 25vw;
+    right: 25vw;
+    bottom: 2.5vh;
     z-index: 4;
 }
 
