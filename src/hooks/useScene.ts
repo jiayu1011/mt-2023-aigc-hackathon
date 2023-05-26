@@ -8,8 +8,10 @@ export const useScene = () => {
        loader.add("/bg2.png")
         .load(()=>{
             const bg = new PIXI.Sprite(loader.resources["/bg2.png"].texture);
-            pixi.stage.addChild(bg);
+            bg.height=window.innerHeight
+            pixi.stage.addChildAt(bg,0);
         });
+       
     }
    
     return {
