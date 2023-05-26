@@ -9,9 +9,9 @@
     font-family: PingFangSC-Medium;
     font-size: 16px;
     color: #222222;
-    letter-spacing: 0;
     text-align: center;
     font-weight: 500;
+    padding: 0 24px;
   }
 
   .recordContainer {
@@ -27,6 +27,15 @@
       border-radius: 50%;
       background: #7980C3;
       box-shadow: 0 0 8px 0 #CAD5F1;
+
+      &:hover {
+        background: cornflowerblue;
+      }
+
+      &.hover {
+        background: orangered;
+      }
+
     }
 
     .recordImage {
