@@ -47,12 +47,7 @@ export const useLive2DModel = () => {
             console.log('motion finish')
             setIsMotionFinished(true)
         })
-        if (model?.internalModel.motionManager.currentAudio) {
-            model.internalModel.motionManager.currentAudio.onended = () => {
-                console.log('audio finish')
-                setIsAudioFinished(true)
-            }
-        }
+      
 
         setModel(model)
     }
@@ -102,6 +97,12 @@ export const useLive2DModel = () => {
         setNeedsResetMotion(true)
         stopAllMotion()
         model.motion(type, 0, MotionPriority.NORMAL, audioB64)
+        if (model?.internalModel.motionManager.currentAudio) {
+            model.internalModel.motionManager.currentAudio.onended = () => {
+                console.log('audio finish')
+                setIsAudioFinished(true)
+            }
+        }
     }, [model])
 
     return {
