@@ -1,23 +1,27 @@
-import {memo, useEffect} from "react";
+import {memo, useCallback, useEffect, useState} from "react";
 import cx from "classnames"
 import style from './index.module.scss'
 import {useSpeechRecognition} from "./hooks";
 
 interface Props {
-    onChange?: (content: string) => void
+    onChange?: (content: any) => void
 }
 
 export const Inflow = memo((props: Props) => {
     const {onChange} = props
-    const {content, trigger, isRecord, clearContent} = useSpeechRecognition()
+    const [isRecord, setIsRecord] = useState<boolean>(false)
+    const {content, start, stop, clearContent} = useSpeechRecognition()
 
-    useEffect(() => {
-        if (!isRecord && content) {
+    const onRecordClick = useCallback(() => {
+        if (isRecord) {
+            stop()
             onChange && onChange(content)
         } else {
             clearContent()
+            start()
         }
-    }, [isRecord])
+        setIsRecord(!isRecord)
+    }, [isRecord, content])
 
     return (
         <div className={style.container}>
@@ -25,7 +29,7 @@ export const Inflow = memo((props: Props) => {
                 {content || '...'}
             </div>
             <div className={style.recordContainer}>
-                <div className={cx(style.record, isRecord ? style.hover : null)} onClick={trigger}>
+                <div className={cx(style.record, isRecord ? style.hover : null)} onClick={onRecordClick}>
                     <img className={style.recordImage}
                          src="https://p0.meituan.net/travelcube/671650a00cc5898ff0ea56e4155e21836051.png"/>
                 </div>

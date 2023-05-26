@@ -2,8 +2,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 
 
 export const useSpeechRecognition = (resultCallback?: (content: string) => void) => {
-    const [isRecord, setIsRecord] = useState<boolean>(false)
-    const [content, setContent] = useState<string | null>()
+    const [content, setContent] = useState<any>()
     const speechRecognitionRef = useRef<any>()
 
     useEffect(() => {
@@ -20,35 +19,20 @@ export const useSpeechRecognition = (resultCallback?: (content: string) => void)
             }
             resultCallback && resultCallback(temp)
             setContent(temp)
-            console.log(temp)
         }
-    })
+    }, [resultCallback])
 
     const start = useCallback(() => {
-        if (!isRecord) {
-            setIsRecord(true)
-            speechRecognitionRef?.current?.start()
-        }
-    }, [isRecord])
+        speechRecognitionRef?.current?.start()
+    }, [])
 
     const stop = useCallback(() => {
-        if (isRecord) {
-            setIsRecord(false)
-            speechRecognitionRef?.current?.stop()
-        }
-    }, [isRecord])
+        speechRecognitionRef?.current?.stop()
+    }, [])
 
     const clearContent = useCallback(() => {
         setContent(null)
     }, [])
 
-    const trigger = useCallback(() => {
-        if (!isRecord) {
-            start()
-        } else {
-            stop()
-        }
-    }, [isRecord, start, stop])
-
-    return {trigger, start, stop, content, clearContent, isRecord}
+    return {start, stop, content, clearContent}
 }
