@@ -1,37 +1,20 @@
-import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
-import {useModel} from "./hooks/useModel";
-import {useMount} from "ahooks";
-import {Live2DModel, MotionPriority} from "pixi-live2d-display";
-import style from './index.module.scss'
+import {useEffect, useState} from "react";
 import * as PIXI from "pixi.js";
+import {Live2DModel, MotionPriority} from "pixi-live2d-display";
+import {useMount} from "ahooks";
 
 type MotionType = 'Flat' | 'Happy' | 'Surprise' | 'Despair' | 'Sad' | 'Why' | 'Care'
 
-interface IProps {
 
-}
-export const Person = forwardRef((props: IProps, ref) => {
-
-    // const {init, model, motionManager} = useModel()
+export const useLive2DModel = () => {
 
     const [model, setModel] = useState<any>() // live2d model
 
     const [isMotionFinished, setIsMotionFinished] = useState<boolean>(true)
     const [isAudioFinished, setIsAudioFinished] = useState<boolean>(true)
 
-    const init = async () => {
-        if (!window) return
-
-        (window as any).PIXI = PIXI
-
-        const canvas = document.getElementById('canvas')
-        if (!canvas) return
-
-        const pixiApp = new PIXI.Application({
-            view: canvas as HTMLCanvasElement,
-            resizeTo: window,
-            transparent: true
-        })
+    const initLive2DModel = async (pixiApp: PIXI.Application) => {
+        if (!pixiApp) return
 
         const model = await Live2DModel.from('/Resources/Hiyori/Hiyori.model3.json')
 
@@ -62,10 +45,6 @@ export const Person = forwardRef((props: IProps, ref) => {
         setModel(model)
     }
 
-    useMount(async () => {
-        await init()
-    })
-
     useEffect(() => {
         if (!model) return
 
@@ -74,7 +53,6 @@ export const Person = forwardRef((props: IProps, ref) => {
             setIsMotionFinished(true)
         })
     }, [model])
-
 
 
     useEffect(() => {
@@ -94,7 +72,7 @@ export const Person = forwardRef((props: IProps, ref) => {
 
         setIsMotionFinished(false)
         stopAllMotion()
-        model.motion(type, 0)
+        model.motion(type)
     }
 
     const motionWithAudio = (type: MotionType, audioB64: ArrayBuffer) => {
@@ -105,14 +83,10 @@ export const Person = forwardRef((props: IProps, ref) => {
         model.motion(type, 0, MotionPriority.NORMAL, audioB64)
     }
 
-    useImperativeHandle(ref, () => ({
-        motion: motion,
-        motionWithAudio: motionWithAudio,
-    }))
-
-    return (
-        <canvas id='canvas'></canvas>
-    )
-})
-
-
+    return {
+        initLive2DModel,
+        motion,
+        motionWithAudio,
+        stopAllMotion,
+    }
+}
