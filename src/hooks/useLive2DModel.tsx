@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import * as PIXI from "pixi.js";
 import {Live2DModel, MotionPriority} from "pixi-live2d-display";
 import {useMount} from "ahooks";
@@ -48,7 +48,7 @@ export const useLive2DModel = () => {
     useEffect(() => {
         if (!model) return
 
-        model.internalModel.motionManager.on('motionFinish', () => {
+        model.internalModel.motionManager.once('motionFinish', () => {
             console.log('motionFinish')
             setIsMotionFinished(true)
         })
@@ -67,13 +67,13 @@ export const useLive2DModel = () => {
         model.internalModel.motionManager.stopAllMotions()
     }
 
-    const motion = (type: MotionType) => {
+    const motion = useCallback( (type: MotionType) => {
         if (!model) return
 
         setIsMotionFinished(false)
         stopAllMotion()
         model.motion(type)
-    }
+    },[model])
 
     const motionWithAudio = (type: MotionType, audioB64: ArrayBuffer) => {
         if (!model) return
@@ -84,9 +84,10 @@ export const useLive2DModel = () => {
     }
 
     return {
-        initLive2DModel,
+        init:initLive2DModel,
         motion,
         motionWithAudio,
         stopAllMotion,
+        model
     }
 }
