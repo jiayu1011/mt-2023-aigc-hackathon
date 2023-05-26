@@ -10,7 +10,7 @@ export const Scene = memo((props: Props) => {
 
     return (
         <div className={style.container}>
-            Scene
+           <div className={style.shadow}></div>
         </div>
     )
 })
