@@ -11,19 +11,16 @@ import {useGetAudio} from './hooks/useGetAudio';
 function App() {
 
     const {init: initScene} = useScene()
-    const {init: initLive2D, motion} = useLive2DModel()
-    const {run} = useGetAudio()
-
-    useEffect(() => {
-        setTimeout(() => {
-            motion('Happy')
-        }, 2000)
-    }, [motion])
-
+    const {init: initLive2D, motionWithAudio} = useLive2DModel()
+    const {runAsync} = useGetAudio()
 
     const onInflowChange = useCallback((content: string) => {
-        alert(content)
-    }, [])
+        if(content){
+            runAsync(content).then((audio)=>{
+                motionWithAudio('Happy',audio)
+            })
+        }
+    }, [motionWithAudio,runAsync])
 
     return (
         <div className="App">
