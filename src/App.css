@@ -8,7 +8,6 @@
 .Scene {
     height: 100vh;
     width: 100vw;
-    background: #aaaaaa;
     position: absolute;
     top: 0;
     left: 0;
@@ -18,31 +17,20 @@
 }
 
 .Person {
-    height: 100vh;
-    width: 100vw;
-    background: rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
     z-index: 2;
 }
 
 .Feedback {
-    height: 100vh;
-    width: 50vw;
-    background: blue;
     position: absolute;
     top: 0;
     left: 0;
-    right: 50vh;
-    bottom: 0;
     z-index: 3;
 }
 
 .Inflow {
-    height: 10vh;
     width: 100vw;
     background: red;
     position: absolute;
