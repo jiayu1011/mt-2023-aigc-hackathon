@@ -10,13 +10,12 @@ import { useGetAudio } from './hooks/useGetAudio';
 
 function App() {
 
-
     const {init:initScene} = useScene()
     const {init:initLive2D, motion } = useLive2DModel()
     const { run } = useGetAudio()
 
     useEffect(()=>{
-      
+
         setTimeout(()=>{
             motion('Happy')
         },2000)
@@ -27,7 +26,7 @@ function App() {
                 initScene(pixi)
                 initLive2D(pixi)
             }}/>
-           
+
             <div className="Feedback">
                 <Feedback/>
             </div>
