@@ -1,15 +1,17 @@
-import { Application } from "pixi.js";
+import * as PIXI from "pixi.js";
 
 export const useScene = () => {
-  
-    const init = (pixi:Application) => {
+    const init = (pixi:PIXI.Application) => {
         if (!pixi) return
-
-        // pixi.stage.addChild(model)
+       
+       const loader =  new PIXI.Loader()
+       loader.add("/bg2.png")
+        .load(()=>{
+            const bg = new PIXI.Sprite(loader.resources["/bg2.png"].texture);
+            pixi.stage.addChild(bg);
+        });
     }
-
    
-
     return {
         init
     }
