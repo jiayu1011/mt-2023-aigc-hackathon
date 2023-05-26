@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Scene} from "./components/scene";
+import {Person} from "./components/person";
+import {Feedback} from "./components/feedback";
+import {Inflow} from "./components/inflow";
 
 function App() {
+
+
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <div className="Scene">
+                <Scene/>
+            </div>
+            <div className="Person">
+                <Person/>
+            </div>
+            <div className="Feedback">
+                <Feedback/>
+            </div>
+            <div className="Inflow">
+                <Inflow/>
+            </div>
         </div>
     );
 }

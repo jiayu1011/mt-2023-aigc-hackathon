@@ -1,38 +1,55 @@
 .App {
-  text-align: center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Scene {
+    height: 100vh;
+    width: 100vw;
+    background: #aaaaaa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Person {
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Feedback {
+    height: 100vh;
+    width: 50vw;
+    background: blue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 50vh;
+    bottom: 0;
+    z-index: 3;
 }
 
-.App-link {
-  color: #61dafb;
+.Inflow {
+    height: 10vh;
+    width: 100vw;
+    background: red;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
