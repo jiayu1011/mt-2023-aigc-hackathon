@@ -33,7 +33,9 @@ function App() {
             }}/>
 
             <div className="Feedback">
-                <Feedback/>
+                <Feedback>
+                    <div></div>
+                </Feedback>
             </div>
             <div className="Inflow">
                 <Inflow onChange={onInflowChange}/>
