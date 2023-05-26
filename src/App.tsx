@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {Scene} from "./components/scene";
 import {Person} from "./components/person";
@@ -7,6 +7,9 @@ import {Inflow} from "./components/inflow";
 
 function App() {
 
+    const onInflowChange = useCallback((content: string) => {
+        alert(content)
+    }, [])
 
     return (
         <div className="App">
@@ -20,7 +23,7 @@ function App() {
                 <Feedback/>
             </div>
             <div className="Inflow">
-                <Inflow/>
+                <Inflow onChange={onInflowChange}/>
             </div>
         </div>
     );
