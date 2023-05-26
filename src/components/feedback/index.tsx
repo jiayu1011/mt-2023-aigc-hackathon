@@ -5,8 +5,8 @@ interface Props {
     children: ReactNode
 }
 
+
 export const Feedback = memo((props: Props) => {
-    console.log(props)
 
     return (
         <div className={style.container}>
