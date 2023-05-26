@@ -21,8 +21,6 @@ export const useLive2DModel = () => {
 
         console.log('model', model)
 
-        pixiApp.stage.addChild(model)
-
         model.anchor.set(0.5, 0.5)
 
         const modelAspectRatio = model.width / model.height
@@ -47,9 +45,10 @@ export const useLive2DModel = () => {
             console.log('motion finish')
             setIsMotionFinished(true)
         })
-      
 
         setModel(model)
+
+        pixiApp.stage.addChild(model)
     }
 
     useEffect(() => {
@@ -107,6 +106,7 @@ export const useLive2DModel = () => {
 
     return {
         init,
+        model,
         motion,
         motionWithAudio,
         stopAllMotion,

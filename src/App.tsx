@@ -11,49 +11,31 @@ import { useGetChatGPT } from './hooks/useGetChatGPT';
 import {Loading} from "./components/feedback/components/Loading";
 import {Card} from "./components/feedback/components/Card";
 import {List} from "./components/feedback/components/List";
+import {useMount} from "ahooks";
 
 function App() {
 
     const {init: initScene} = useScene()
     const {init: initLive2D, motionWithAudio} = useLive2DModel()
-    const {runAsync:runGetAudio} = useGetAudio()
-    const {runAsync:runGetChatGPT} = useGetChatGPT()
+    const {runAsync: runGetChatGPT} = useGetChatGPT()
+    const {runAsync: runGetAudio, loading} = useGetAudio()
 
 
-    const [loading, setLoading] = useState<boolean>(false)
     const [chatResText, setChatResText] = useState<string>('')
     const [poiList, setPoiList] = useState<any[]>([])
 
-    const [dealList, setDealList] = useState<any[]>([{
-        headImg: '',
-        name: '单人餐法式甜品',
-        limitDes: '周一至周五可用 包间不可用',
-        mainDes: '入口即化，好吃又低脂',
-        price: '45',
-        discount: '0.89',
-        realPrice: '51',
-        salesCount: '128',
-    },{
-        headImg: '',
-        name: '单人餐法式甜品',
-        limitDes: '周一至周五可用 包间不可用',
-        mainDes: '入口即化，好吃又低脂',
-        price: '45',
-        discount: '0.89',
-        realPrice: '51',
-        salesCount: '128',
-    },{
-        headImg: '',
-        name: '单人餐法式甜品',
-        limitDes: '周一至周五可用 包间不可用',
-        mainDes: '入口即化，好吃又低脂',
-        price: '45',
-        discount: '0.89',
-        realPrice: '51',
-        salesCount: '128',
-    }])
+    const [dealList, setDealList] = useState<any[]>([])
 
-    const list = useMemo(() => poiList.length>0 ? poiList:dealList, [poiList, dealList])
+    const list = useMemo(() => poiList.length>0 ? poiList : dealList, [poiList, dealList])
+
+    const TestBtn = () => (
+        <button
+            style={{width: '100px', height: '100px', position: 'absolute', zIndex: '9', backgroundColor: 'transparent', color: 'transparent', border: 'none', top: '0', right: '0'}}
+            onClick={() => {onInflowChange('你好')}}
+        >
+            start
+        </button>
+    )
 
     const Slot = () => {
         if (loading) return <Loading/>
@@ -63,7 +45,7 @@ function App() {
                 {chatResText && <div>{chatResText}</div>}
                 <List
                     renderItem={(item, index) => (
-                        <Card info={item}/>
+                        <Card key={`card-${index}`} info={item}/>
                     )}
                     data={list}
                 />
@@ -75,9 +57,8 @@ function App() {
         if (!text) return
 
         try {
-            setLoading(true)
             const chatRes: any = await runGetChatGPT(text)
-            const {content, emotion, poiInfos, deals} = chatRes || {}
+            const {content, emotion, poiInfos, deals} = chatRes
 
             if (!content) return
             const audioRes: any = await runGetAudio(content)
@@ -86,15 +67,12 @@ function App() {
             setChatResText(content)
             poiInfos && setPoiList(poiInfos)
             deals && setDealList(deals)
-            setLoading(false)
 
         } catch (e: any) {
             throw new Error(e)
         }
 
     }, [motionWithAudio,runGetAudio,runGetChatGPT])
-
-
 
     return (
         <div className="App">
@@ -103,12 +81,17 @@ function App() {
                 initLive2D(pixi)
             }}/>
 
-            <div className="Feedback">
-                {chatResText && <Feedback><Slot/></Feedback>}
-            </div>
+            {
+                chatResText && (
+                    <div className="Feedback">
+                        <Feedback><Slot/></Feedback>
+                    </div>
+                )
+            }
             <div className="Inflow">
                 <Inflow onChange={onInflowChange}/>
             </div>
+            <TestBtn></TestBtn>
         </div>
     );
 }
