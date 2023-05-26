@@ -1,7 +1,7 @@
 import {memo, useCallback, useEffect, useState} from "react";
 import cx from "classnames"
 import style from './index.module.scss'
-import {useSpeechRecognition} from "./hooks";
+import {useSpeechRecognition} from "../../hooks/useSpeechRecognition";
 
 interface Props {
     onChange?: (content: any) => void
