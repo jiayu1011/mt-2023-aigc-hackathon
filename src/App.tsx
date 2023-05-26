@@ -22,7 +22,7 @@ function App() {
 
 
     const onInflowChange = useCallback((content: string) => {
-        alert(content)
+        console.log(content)
     }, [])
 
     return (

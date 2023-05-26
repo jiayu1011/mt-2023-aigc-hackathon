@@ -22,7 +22,7 @@ export const Inflow = memo((props: Props) => {
     return (
         <div className={style.container}>
             <div className={style.contentContainer}>
-                {content || ''}
+                {content || '...'}
             </div>
             <div className={style.recordContainer}>
                 <div className={cx(style.record, isRecord ? style.hover : null)} onClick={trigger}>
