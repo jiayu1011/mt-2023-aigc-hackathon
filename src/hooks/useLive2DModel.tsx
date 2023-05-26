@@ -1,14 +1,14 @@
 import {useCallback, useEffect, useState} from "react";
 import * as PIXI from "pixi.js";
 import {Live2DModel, MotionPriority} from "pixi-live2d-display";
-import {useMount} from "ahooks";
+
 
 type MotionType = 'Flat' | 'Happy' | 'Surprise' | 'Despair' | 'Sad' | 'Why' | 'Care'
 
 
 export const useLive2DModel = () => {
 
-    const [model, setModel] = useState<any>() // live2d model
+    const [model, setModel] = useState<Live2DModel>() // live2d model
 
     const [isMotionFinished, setIsMotionFinished] = useState<boolean>(true)
     const [isAudioFinished, setIsAudioFinished] = useState<boolean>(true)
@@ -36,23 +36,18 @@ export const useLive2DModel = () => {
 
 
         // 全身
-        // model.scale.set(scale * 1)
-        // model.position.set(pixiApp.view.width / 2, pixiApp.view.height / 2)
+        model.scale.set(scale)
+        model.position.set(pixiApp.view.width*0.3, pixiApp.view.height / 2)
 
         // 半身
-        model.scale.set(scale * 1.6)
-        model.position.set(pixiApp.view.width*0.4, pixiApp.view.height*0.85)
+        // model.scale.set(scale * 1.6)
+        // model.position.set(pixiApp.view.width*0.4, pixiApp.view.height*0.85)
 
         model.internalModel.motionManager.on('motionFinish', () => {
             console.log('motion finish')
             setIsMotionFinished(true)
         })
-        if (model?.internalModel.motionManager.currentAudio) {
-            model.internalModel.motionManager.currentAudio.onended = () => {
-                console.log('audio finish')
-                setIsAudioFinished(true)
-            }
-        }
+      
 
         setModel(model)
     }
@@ -65,13 +60,14 @@ export const useLive2DModel = () => {
     }, [isMotionFinished, isAudioFinished, needsResetMotion])
 
 
-    const triggerResetMotion = () => {
+    const triggerResetMotion = useCallback(() => {
         /**
          * 触发重置动画（Flat）
          */
+        if (!model) return
         setNeedsResetMotion(false)
         model.motion('Flat')
-    }
+    }, [model])
 
     const stopAllMotion = useCallback(() => {
         if (!model) return
@@ -90,7 +86,7 @@ export const useLive2DModel = () => {
         model.motion(type)
     }, [model])
 
-    const motionWithAudio = useCallback((type: MotionType, audioB64: ArrayBuffer) => {
+    const motionWithAudio = useCallback((type: MotionType, audioB64: string) => {
         /**
          * 调用带声音的动画，格式为wav或base64
          */
@@ -101,6 +97,12 @@ export const useLive2DModel = () => {
         setNeedsResetMotion(true)
         stopAllMotion()
         model.motion(type, 0, MotionPriority.NORMAL, audioB64)
+        if (model?.internalModel.motionManager.currentAudio) {
+            model.internalModel.motionManager.currentAudio.onended = () => {
+                console.log('audio finish')
+                setIsAudioFinished(true)
+            }
+        }
     }, [model])
 
     return {

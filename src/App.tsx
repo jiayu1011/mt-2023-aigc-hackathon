@@ -7,23 +7,31 @@ import {PixiManager} from './components/PixiManager';
 import {useScene} from './hooks/useScene';
 import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
+import { useGetChatGPT } from './hooks/useGetChatGPT';
+import {Loading} from "./components/feedback/components/Loading";
 
 function App() {
 
     const {init: initScene} = useScene()
-    const {init: initLive2D, motion} = useLive2DModel()
-    const {run} = useGetAudio()
-
-    useEffect(() => {
-        setTimeout(() => {
-            motion('Happy')
-        }, 2000)
-    }, [motion])
-
+    const {init: initLive2D, motionWithAudio} = useLive2DModel()
+    const {runAsync:runGetAudio} = useGetAudio()
+    const {runAsync:runGetChatGPT} = useGetChatGPT()
 
     const onInflowChange = useCallback((content: string) => {
-        console.log(content)
-    }, [])
+        if(content){
+            runGetChatGPT(content).then((res)=>{
+                const {content,emotion, poiInfos, deals} = res||{}
+                // 调用动作
+                if(content){
+                    runGetAudio(content).then((audio:any)=>{
+                        motionWithAudio(emotion,audio)
+                    })
+                }
+                // 聊天窗口展示。。。
+              
+            })
+        }
+    }, [motionWithAudio,runGetAudio,runGetChatGPT])
 
     return (
         <div className="App">
@@ -34,7 +42,7 @@ function App() {
 
             <div className="Feedback">
                 <Feedback>
-                    <div></div>
+                    <Loading/>
                 </Feedback>
             </div>
             <div className="Inflow">
