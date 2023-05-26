@@ -7,6 +7,7 @@ import {PixiManager} from './components/PixiManager';
 import {useScene} from './hooks/useScene';
 import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
+import {Loading} from "./components/feedback/components/Loading";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
 
             <div className="Feedback">
                 <Feedback>
-                    <div></div>
+                    <Loading/>
                 </Feedback>
             </div>
             <div className="Inflow">

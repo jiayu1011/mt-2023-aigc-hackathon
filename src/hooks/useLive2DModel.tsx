@@ -60,14 +60,14 @@ export const useLive2DModel = () => {
     }, [isMotionFinished, isAudioFinished, needsResetMotion])
 
 
-    const triggerResetMotion = () => {
+    const triggerResetMotion = useCallback(() => {
         /**
          * 触发重置动画（Flat）
          */
         if (!model) return
         setNeedsResetMotion(false)
         model.motion('Flat')
-    }
+    }, [model])
 
     const stopAllMotion = useCallback(() => {
         if (!model) return
