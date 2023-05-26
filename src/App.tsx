@@ -16,7 +16,7 @@ function App() {
 
     const onInflowChange = useCallback((content: string) => {
         if(content){
-            runAsync(content).then((audio)=>{
+            runAsync(content).then((audio:any)=>{
                 motionWithAudio('Happy',audio)
             })
         }
@@ -30,7 +30,9 @@ function App() {
             }}/>
 
             <div className="Feedback">
-                <Feedback/>
+                <Feedback>
+                    <div></div>
+                </Feedback>
             </div>
             <div className="Inflow">
                 <Inflow onChange={onInflowChange}/>
