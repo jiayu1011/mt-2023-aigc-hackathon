@@ -52,9 +52,7 @@ export const Card: React.FC<IProps> = memo((props) => {
             <div className={style.centerBody}>
                 <div className={style.name}>{info.name}</div>
                 <div className={style.secondRow}>
-                    <span>周一至周五可用</span>
-                    <span>·</span>
-                    <span>包间不可用</span>
+                    <div style={{fontSize: '14px', color: '#666666'}}>周一至周五可用·包间不可用</div>
                 </div>
 
                 <div className={style.priceRow}>

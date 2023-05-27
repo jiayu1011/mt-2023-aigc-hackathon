@@ -144,32 +144,32 @@ const App: React.FC = () => {
             //     }
             // ]
 
-            deals = [
-                {
-                    "dealId": "d850273039",
-                    "dealName": "红糖冰汤圆1份",
-                    "dealHeadImg": "https://p1.meituan.net/deal/2176c1071ece72f252c3a80f670dcbd7325618.jpg@428w_320h_1e_1c",
-                    "dealPrice": 2
-                },
-                {
-                    "dealId": "d850240794",
-                    "dealName": "手作饮品2选1",
-                    "dealHeadImg": "https://p1.meituan.net/deal/46556c651fab4df4d58351e5217ac19b263686.jpg@428w_320h_1e_1c",
-                    "dealPrice": 3.9
-                },
-                {
-                    "dealId": "d850086613",
-                    "dealName": "牧马人❤Five拼盘",
-                    "dealHeadImg": "https://p0.meituan.net/deal/7d20931f27cf9aa0715f30be53cd7485131592.jpg@428w_320h_1e_1c",
-                    "dealPrice": 58
-                },
-                {
-                    "dealId": "d850240693",
-                    "dealName": "50元代金券",
-                    "dealHeadImg": "https://p0.meituan.net/deal/39045af3c69ba5fe963051115b2090bb336723.jpg@428w_320h_1e_1c",
-                    "dealPrice": 20
-                }
-            ]
+            // deals = [
+            //     {
+            //         "dealId": "d850273039",
+            //         "dealName": "红糖冰汤圆1份",
+            //         "dealHeadImg": "https://p1.meituan.net/deal/2176c1071ece72f252c3a80f670dcbd7325618.jpg@428w_320h_1e_1c",
+            //         "dealPrice": 2
+            //     },
+            //     {
+            //         "dealId": "d850240794",
+            //         "dealName": "手作饮品2选1",
+            //         "dealHeadImg": "https://p1.meituan.net/deal/46556c651fab4df4d58351e5217ac19b263686.jpg@428w_320h_1e_1c",
+            //         "dealPrice": 3.9
+            //     },
+            //     {
+            //         "dealId": "d850086613",
+            //         "dealName": "牧马人❤Five拼盘",
+            //         "dealHeadImg": "https://p0.meituan.net/deal/7d20931f27cf9aa0715f30be53cd7485131592.jpg@428w_320h_1e_1c",
+            //         "dealPrice": 58
+            //     },
+            //     {
+            //         "dealId": "d850240693",
+            //         "dealName": "50元代金券",
+            //         "dealHeadImg": "https://p0.meituan.net/deal/39045af3c69ba5fe963051115b2090bb336723.jpg@428w_320h_1e_1c",
+            //         "dealPrice": 20
+            //     }
+            // ]
 
             const poiList = poiInfos?.map((item: any) => ({
                 headImg: item.poiHeadImg,
@@ -207,7 +207,7 @@ const App: React.FC = () => {
             {
                 showFeedBack && (
                     <div className="Feedback">
-                        <Feedback>
+                        <Feedback isLoading={loading}>
                             {
                                 loading ? <Loading/> : (
                                     <div>
