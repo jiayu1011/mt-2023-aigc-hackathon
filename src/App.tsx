@@ -7,7 +7,7 @@ import {PixiManager} from './components/PixiManager';
 import {useScene} from './hooks/useScene';
 import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
-import { useGetChatGPT } from './hooks/useGetChatGPT';
+import {useGetChatGPT} from './hooks/useGetChatGPT';
 import {Loading} from "./components/feedback/components/Loading";
 import {Card} from "./components/feedback/components/Card";
 import {List} from "./components/feedback/components/List";
@@ -26,12 +26,24 @@ function App() {
 
     const [dealList, setDealList] = useState<any[]>([])
 
-    const list = useMemo(() => poiList.length>0 ? poiList : dealList, [poiList, dealList])
+    const list = useMemo(() => poiList.length > 0 ? poiList : dealList, [poiList, dealList])
 
     const TestBtn = () => (
         <button
-            style={{width: '100px', height: '100px', position: 'absolute', zIndex: '9', backgroundColor: 'transparent', color: 'transparent', border: 'none', top: '0', right: '0'}}
-            onClick={() => {onInflowChange('你好')}}
+            style={{
+                width: '100px',
+                height: '100px',
+                position: 'absolute',
+                zIndex: '9',
+                backgroundColor: 'transparent',
+                color: 'transparent',
+                border: 'none',
+                top: '0',
+                right: '0'
+            }}
+            onClick={() => {
+                onInflowChange('你好')
+            }}
         >
             start
         </button>
@@ -72,14 +84,16 @@ function App() {
             throw new Error(e)
         }
 
-    }, [motionWithAudio,runGetAudio,runGetChatGPT])
+    }, [motionWithAudio, runGetAudio, runGetChatGPT])
 
     return (
         <div className="App">
             <PixiManager success={async (pixi) => {
                 initScene(pixi)
                 initLive2D(pixi)
-            }}/>
+            }} render={() => <>
+                <img src="/cat.gif" style={{zIndex: 1, position: "absolute", bottom: '10vh', left: '5vw', width: 250}}/>
+            </>}/>
 
             {
                 chatResText && (
