@@ -58,9 +58,8 @@
     .priceRow {
       justify-self: end;
 
-      div {
-        display: inline-block;
-      }
+      display: flex;
+      align-items: center;
 
       .priceIcon {
         color: #ff4b10;
@@ -74,14 +73,24 @@
       .discount {
         border: 1px solid #ff4b10;
         border-radius: 5px;
+
+        font-size: 12px;
+        height: 16px;
+        width: 35px;
+        line-height: 16px;
+        text-align: center;
+        color: #ff4b10;
+        margin-left: 5px;
       }
 
       .realPrice {
         text-decoration: line-through;
+        margin-left: 5px;
       }
 
 
     }
+
 
   }
 }
