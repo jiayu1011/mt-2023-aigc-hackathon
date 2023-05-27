@@ -39,12 +39,28 @@ const App: React.FC = () => {
                 right: '0'
             }}
             onClick={() => {
-                sendChat('你好')
+                welcomeChat(
+                    '亲爱的你来啦，人家想你好久了呢。' +
+                    '今天想吃点什么呀～听说重庆有好多美食:D\n' +
+                    '快来跟我互动吧！不过别惹我生气哦，本姑娘也不是好惹的😈'
+                )
             }}
         >
             start
         </button>
     )
+
+    const welcomeChat = useCallback(async (text: string) => {
+        const audioRes: any = await runGetAudio(text)
+        if (!audioRes) {
+            console.error('get audio failed!')
+            return
+        }
+
+        motionWithAudio('Happy', audioRes)
+
+        setChatResText(text)
+    }, [motionWithAudio, runGetAudio])
 
     const sendChat = useCallback(async (text: string) => {
         if (!text) return
@@ -212,12 +228,16 @@ const App: React.FC = () => {
                                 loading ? <Loading/> : (
                                     <div>
                                         {chatResText && <div style={{fontSize: '18px'}}>{chatResText}</div>}
-                                        <List
-                                            renderItem={(item, index) => (
-                                                <Card key={`card-${index}`} info={item} type={info.type}/>
-                                            )}
-                                            data={info.list}
-                                        />
+                                        {
+                                            info && (
+                                                <List
+                                                renderItem={(item, index) => (
+                                                    <Card key={`card-${index}`} info={item} type={info.type}/>
+                                                )}
+                                                data={info.list}
+                                                />
+                                            )
+                                        }
                                     </div>
                                 )
                             }
