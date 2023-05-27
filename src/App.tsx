@@ -26,8 +26,20 @@ const App: React.FC = () => {
 
     const TestBtn = () => (
         <button
-            style={{width: '100px', height: '100px', position: 'absolute', zIndex: '9', backgroundColor: 'transparent', color: 'transparent', border: 'none', top: '0', right: '0'}}
-            onClick={() => {sendChat('你好')}}
+            style={{
+                width: '100px',
+                height: '100px',
+                position: 'absolute',
+                zIndex: '9',
+                backgroundColor: 'transparent',
+                color: 'transparent',
+                border: 'none',
+                top: '0',
+                right: '0'
+            }}
+            onClick={() => {
+                sendChat('你好')
+            }}
         >
             start
         </button>
@@ -56,7 +68,7 @@ const App: React.FC = () => {
             setLoading(true)
 
             const chatRes: any = await runGetChatGPT(text)
-            const {content, emotion, poiInfos, deals} = chatRes
+            const {content, emotion, poiInfos, deals} = chatRes || {}
 
             if (!content) return
             const audioRes: any = await runGetAudio(content)
@@ -74,7 +86,7 @@ const App: React.FC = () => {
                 name: item.dealName,
                 price: item.dealPrice,
             })) || []
-            setList(poiList.length>0 ? poiList:dealsList)
+            setList(poiList.length > 0 ? poiList : dealsList)
 
             setLoading(false)
         } catch (e: any) {
