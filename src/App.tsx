@@ -7,7 +7,7 @@ import {PixiManager} from './components/PixiManager';
 import {useScene} from './hooks/useScene';
 import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
-import { useGetChatGPT } from './hooks/useGetChatGPT';
+import {useGetChatGPT} from './hooks/useGetChatGPT';
 import {Loading} from "./components/feedback/components/Loading";
 import {Card} from "./components/feedback/components/Card";
 import {List} from "./components/feedback/components/List";
@@ -34,7 +34,6 @@ const App: React.FC = () => {
     )
 
     const Slot = () => {
-        // return <Loading/>
         if (loading) return <Loading/>
 
         return (
@@ -82,7 +81,7 @@ const App: React.FC = () => {
             throw new Error(e)
         }
 
-    }, [motionWithAudio,runGetAudio,runGetChatGPT])
+    }, [motionWithAudio, runGetAudio, runGetChatGPT])
 
     const showFeedBack = useMemo(() => loading || chatResText, [loading, chatResText])
 
@@ -91,7 +90,9 @@ const App: React.FC = () => {
             <PixiManager success={async (pixi) => {
                 initScene(pixi)
                 initLive2D(pixi)
-            }}/>
+            }} render={() => <>
+                <img src="/cat.gif" style={{zIndex: 1, position: "absolute", bottom: '10vh', left: '5vw', width: 250}}/>
+            </>}/>
 
             {
                 showFeedBack && (
