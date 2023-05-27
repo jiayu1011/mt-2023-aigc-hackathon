@@ -7,7 +7,7 @@ import {PixiManager} from './components/PixiManager';
 import {useScene} from './hooks/useScene';
 import {useLive2DModel} from './hooks/useLive2DModel';
 import {useGetAudio} from './hooks/useGetAudio';
-import { useGetChatGPT } from './hooks/useGetChatGPT';
+import {useGetChatGPT} from './hooks/useGetChatGPT';
 import {Loading} from "./components/feedback/components/Loading";
 import {Card} from "./components/feedback/components/Card";
 import {List} from "./components/feedback/components/List";
@@ -16,8 +16,8 @@ function App() {
 
     const {init: initScene} = useScene()
     const {init: initLive2D, motionWithAudio} = useLive2DModel()
-    const {runAsync:runGetAudio} = useGetAudio()
-    const {runAsync:runGetChatGPT} = useGetChatGPT()
+    const {runAsync: runGetAudio} = useGetAudio()
+    const {runAsync: runGetChatGPT} = useGetChatGPT()
 
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -33,7 +33,7 @@ function App() {
         discount: '0.89',
         realPrice: '51',
         salesCount: '128',
-    },{
+    }, {
         headImg: '',
         name: '单人餐法式甜品',
         limitDes: '周一至周五可用 包间不可用',
@@ -42,7 +42,7 @@ function App() {
         discount: '0.89',
         realPrice: '51',
         salesCount: '128',
-    },{
+    }, {
         headImg: '',
         name: '单人餐法式甜品',
         limitDes: '周一至周五可用 包间不可用',
@@ -53,7 +53,7 @@ function App() {
         salesCount: '128',
     }])
 
-    const list = useMemo(() => poiList.length>0 ? poiList:dealList, [poiList, dealList])
+    const list = useMemo(() => poiList.length > 0 ? poiList : dealList, [poiList, dealList])
 
     const Slot = () => {
         if (loading) return <Loading/>
@@ -92,8 +92,7 @@ function App() {
             throw new Error(e)
         }
 
-    }, [motionWithAudio,runGetAudio,runGetChatGPT])
-
+    }, [motionWithAudio, runGetAudio, runGetChatGPT])
 
 
     return (
@@ -101,7 +100,10 @@ function App() {
             <PixiManager success={async (pixi) => {
                 initScene(pixi)
                 initLive2D(pixi)
-            }}/>
+            }} render={() => <>
+                <img src="/cat.gif" style={{zIndex: 1, position: "absolute", bottom: '10vh', left: '5vw', width: 250}}/>
+            </>}/>
+
 
             <div className="Feedback">
                 {chatResText && <Feedback><Slot/></Feedback>}
