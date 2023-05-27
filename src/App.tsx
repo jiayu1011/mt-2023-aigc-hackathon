@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
     const [info, setInfo] = useState<any>()
 
-    const TestBtn = () => (
+    const TestBtn = (
         <button
             style={{
                 width: '100px',
@@ -45,22 +45,6 @@ const App: React.FC = () => {
             start
         </button>
     )
-
-    const Slot = () => {
-        if (loading) return <Loading/>
-
-        return (
-            <div>
-                {chatResText && <div style={{fontSize: '18px'}}>{chatResText}</div>}
-                <List
-                    renderItem={(item, index) => (
-                        <Card key={`card-${index}`} info={item} type={info.type}/>
-                    )}
-                    data={info.list}
-                />
-            </div>
-        )
-    }
 
     const sendChat = useCallback(async (text: string) => {
         if (!text) return
@@ -223,14 +207,28 @@ const App: React.FC = () => {
             {
                 showFeedBack && (
                     <div className="Feedback">
-                        <Feedback><Slot/></Feedback>
+                        <Feedback>
+                            {
+                                loading ? <Loading/> : (
+                                    <div>
+                                        {chatResText && <div style={{fontSize: '18px'}}>{chatResText}</div>}
+                                        <List
+                                            renderItem={(item, index) => (
+                                                <Card key={`card-${index}`} info={item} type={info.type}/>
+                                            )}
+                                            data={info.list}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </Feedback>
                     </div>
                 )
             }
             <div className="Inflow">
                 <Inflow onChange={sendChat}/>
             </div>
-            <TestBtn></TestBtn>
+            {TestBtn}
         </div>
     );
 }
