@@ -13,31 +13,28 @@ import {Card} from "./components/feedback/components/Card";
 import {List} from "./components/feedback/components/List";
 import {useMount} from "ahooks";
 
-function App() {
+const App: React.FC = () => {
 
     const {init: initScene} = useScene()
     const {init: initLive2D, motionWithAudio} = useLive2DModel()
     const {runAsync: runGetChatGPT} = useGetChatGPT()
-    const {runAsync: runGetAudio, loading} = useGetAudio()
+    const {runAsync: runGetAudio} = useGetAudio()
 
-
+    const [loading, setLoading] = useState<boolean>(false)
     const [chatResText, setChatResText] = useState<string>('')
-    const [poiList, setPoiList] = useState<any[]>([])
-
-    const [dealList, setDealList] = useState<any[]>([])
-
-    const list = useMemo(() => poiList.length>0 ? poiList : dealList, [poiList, dealList])
+    const [list, setList] = useState<any[]>([])
 
     const TestBtn = () => (
         <button
             style={{width: '100px', height: '100px', position: 'absolute', zIndex: '9', backgroundColor: 'transparent', color: 'transparent', border: 'none', top: '0', right: '0'}}
-            onClick={() => {onInflowChange('你好')}}
+            onClick={() => {sendChat('你好')}}
         >
             start
         </button>
     )
 
     const Slot = () => {
+        // return <Loading/>
         if (loading) return <Loading/>
 
         return (
@@ -53,10 +50,12 @@ function App() {
         )
     }
 
-    const onInflowChange = useCallback(async (text: string) => {
+    const sendChat = useCallback(async (text: string) => {
         if (!text) return
 
         try {
+            setLoading(true)
+
             const chatRes: any = await runGetChatGPT(text)
             const {content, emotion, poiInfos, deals} = chatRes
 
@@ -65,14 +64,27 @@ function App() {
             motionWithAudio(emotion, audioRes)
 
             setChatResText(content)
-            poiInfos && setPoiList(poiInfos)
-            deals && setDealList(deals)
 
+            const poiList = poiInfos?.map((item: any) => ({
+                headImg: item.poiHeadImg,
+                name: item.poiName,
+                address: item.address,
+            })) || []
+            const dealsList = deals?.map((item: any) => ({
+                headImg: item.heaImg,
+                name: item.dealName,
+                price: item.dealPrice,
+            })) || []
+            setList(poiList.length>0 ? poiList:dealsList)
+
+            setLoading(false)
         } catch (e: any) {
             throw new Error(e)
         }
 
     }, [motionWithAudio,runGetAudio,runGetChatGPT])
+
+    const showFeedBack = useMemo(() => loading || chatResText, [loading, chatResText])
 
     return (
         <div className="App">
@@ -82,14 +94,14 @@ function App() {
             }}/>
 
             {
-                chatResText && (
+                showFeedBack && (
                     <div className="Feedback">
                         <Feedback><Slot/></Feedback>
                     </div>
                 )
             }
             <div className="Inflow">
-                <Inflow onChange={onInflowChange}/>
+                <Inflow onChange={sendChat}/>
             </div>
             <TestBtn></TestBtn>
         </div>

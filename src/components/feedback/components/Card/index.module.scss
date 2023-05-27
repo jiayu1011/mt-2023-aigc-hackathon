@@ -8,6 +8,7 @@
     .headImg {
       width: 85px;
       height: 85px;
+
     }
 
 
@@ -17,6 +18,9 @@
 
   }
   .rightBody {
+    display: flex;
+    flex-direction: column;
+
 
   }
 }

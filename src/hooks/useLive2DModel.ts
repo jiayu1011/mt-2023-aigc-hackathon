@@ -32,7 +32,6 @@ export const useLive2DModel = () => {
             scale = pixiApp.view.width / model.width
         }
 
-
         // 全身
         model.scale.set(scale)
         model.position.set(pixiApp.view.width*0.3, pixiApp.view.height / 2)
@@ -46,18 +45,10 @@ export const useLive2DModel = () => {
             setIsMotionFinished(true)
         })
 
-        setModel(model)
-
         pixiApp.stage.addChild(model)
+
+        setModel(model)
     }
-
-    useEffect(() => {
-        // 此处监听needsResetMotion，防止重置动画结束触发的无限循环
-        if (!isMotionFinished || !isAudioFinished || !needsResetMotion) return
-
-        triggerResetMotion()
-    }, [isMotionFinished, isAudioFinished, needsResetMotion])
-
 
     const triggerResetMotion = useCallback(() => {
         /**
@@ -103,6 +94,13 @@ export const useLive2DModel = () => {
             }
         }
     }, [model])
+
+    useEffect(() => {
+        // 此处监听needsResetMotion，防止重置动画结束触发的无限循环
+        if (!isMotionFinished || !isAudioFinished || !needsResetMotion) return
+
+        triggerResetMotion()
+    }, [isMotionFinished, isAudioFinished, needsResetMotion])
 
     return {
         init,
