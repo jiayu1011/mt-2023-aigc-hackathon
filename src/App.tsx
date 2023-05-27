@@ -18,7 +18,7 @@ const App: React.FC = () => {
     const {init: initScene} = useScene()
     const {init: initLive2D, motionWithAudio} = useLive2DModel()
     const {runAsync: runGetChatGPT} = useGetChatGPT()
-    const {runAsync: runGetAudio} = useGetAudio()
+    const {runAsync: runGetAudio} = useGetAudio('aliyun')
 
     const [loading, setLoading] = useState<boolean>(false)
     const [chatResText, setChatResText] = useState<string>('')
