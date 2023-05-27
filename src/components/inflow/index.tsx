@@ -30,8 +30,11 @@ export const Inflow = memo((props: Props) => {
             </div>
             <div className={style.recordContainer}>
                 <div className={cx(style.record, isRecord ? style.hover : null)} onClick={onRecordClick}>
-                    <img className={style.recordImage}
-                         src="https://p0.meituan.net/travelcube/671650a00cc5898ff0ea56e4155e21836051.png"/>
+                    {!isRecord && <img className={style.recordImage}
+                                       src="record-static.png"/>}
+                    {isRecord && <div style={{width: 60, height: 60, overflow: 'hidden', position: 'relative'}}>
+                        <img style={{height: 120, top: -30, left: -50, position: 'absolute'}} src="./record.gif"/>
+                    </div>}
                 </div>
             </div>
         </div>

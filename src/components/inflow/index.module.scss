@@ -17,6 +17,7 @@
   .recordContainer {
     margin-top: 24px;
     text-align: center;
+    height: 60px;
 
     .record {
       display: inline-flex;
@@ -27,21 +28,22 @@
       border-radius: 50%;
       background: #7980C3;
       box-shadow: 0 0 8px 0 #CAD5F1;
+      overflow: hidden;
 
       &:hover {
         background: cornflowerblue;
       }
 
       &.hover {
-        background: orangered;
+        background: transparent;
       }
 
     }
 
     .recordImage {
-      width: 30px;
-      height: 30px;
-      filter: invert(1);
+      width: 70px;
+      height: 70px;
+      z-index: 0;
     }
   }
 }
