@@ -10,14 +10,16 @@ $bubble-border: 2px;
 .container {
   position: absolute;
   top: 20vh;
-  left: 40vw;
-  width: 400px;
+  left: 50vw;
+  width: 480px;
+
+  color: #222222;
 
   .bubbleHead {
     position: absolute;
     z-index: 2;
     top: 20px;
-    left: 0.15px;
+    left: 0.24px;
 
     height: 0;
     width: 0;

@@ -3,24 +3,83 @@
   padding: 12px;
   display: flex;
   border-radius: 8px;
+  background-color: white;
+  box-sizing: border-box;
 
   .leftBody {
     .headImg {
       width: 85px;
       height: 85px;
+      border-radius: 8px;
+    }
+
+  }
+
+  .centerBody {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+
+    .name {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .secondRow {
+      display: flex;
+      align-items: center;
+
+      .star {
+        height: 12px;
+        width: 72px;
+      }
+      .score {
+        color: red;
+      }
 
     }
 
+    .recommendIcon {
+      height: 16px;
+      width: 125px;
+    }
+
+    .addressRow {
+      display: flex;
+      align-items: center;
+
+      .addressIcon {
+        height: 16px;
+        width: 16px;
+      }
+    }
+
+    .priceRow {
+
+      div {
+        display: inline-block;
+      }
+
+      .priceIcon {
+        color: #ff4b10;
+      }
+
+      .price {
+        color: #ff4b10;
+        font-size: 20px;
+      }
+
+      .discount {
+        border: 1px solid #ff4b10;
+        border-radius: 5px;
+      }
+
+      .realPrice {
+        text-decoration: line-through;
+      }
 
 
-  }
-  .centerBody {
-
-  }
-  .rightBody {
-    display: flex;
-    flex-direction: column;
-
+    }
 
   }
 }

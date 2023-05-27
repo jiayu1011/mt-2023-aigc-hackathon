@@ -34,7 +34,7 @@ export const useLive2DModel = () => {
 
         // 全身
         model.scale.set(scale)
-        model.position.set(pixiApp.view.width*0.3, pixiApp.view.height / 2)
+        model.position.set(pixiApp.view.width*0.4, pixiApp.view.height / 2)
 
         // 半身
         // model.scale.set(scale * 1.6)
