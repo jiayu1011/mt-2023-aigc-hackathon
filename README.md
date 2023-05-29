@@ -1,6 +1,28 @@
-# Getting Started with Create React App
+# 小明的吃货女友
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 2d虚拟人物:
+模型： [live2d](https://www.live2d.com/).（官方有很多示例模型，可以供大家学习使用。人物模型在public/Resources目录下）
+
+渲染： [pixi.js](https://pixijs.com/).
+
+### 文字转语音：
+文字转语音可选择使用阿里云TTS或者美团TTS，如使用阿里云TTS：修改APP.tsx中的useGetAudio('aliyun')即可（默认为美团TTS），需要提前准备对应的APPKey和当日有效的Token，在configs/index.ts中配置。
+
+#### 美团TTS
+
+`MEITUAN_TTS_TOKEN`：美团TTS Token 24小时有效（需要在[美团TTS](https://speech.sankuai.com/tts)示例页面，点击合成语音，从请求中header中获取token）
+
+
+#### 阿里云TTS
+如果使用阿里云TTS，由于时间关系，前端直调阿里云TTS Restful接口，因此有跨域问题，需要启动浏览器非安全模式：1.完全关闭当前chrome，2.命令行打开浏览器：`open -n /Applications/Google\ Chrome.app/ --args --disable-web-security  --user-data-dir=/Users/zhaojunming/WorkSpace/chrome`
+
+`ALIYUN_TTS_APP_KEY`：阿里云TTS Key
+
+`ALIYUN_TTS_TOKEN`：阿里云TTS Token 24小时有效 (需要在[阿里云TTS（需要开通试用）](https://ai.aliyun.com/nls/tts)的控制后台获取24小时有效Token)
+
+### 其他：
+由于时间紧张，语音识别当前没有使用阿里云ASR的websocket接口，使用的是浏览器的`speechRecognition`API。
+
 
 ## Available Scripts
 
@@ -39,7 +61,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## config
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
