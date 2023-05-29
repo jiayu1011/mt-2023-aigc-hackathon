@@ -1,0 +1,51 @@
+@use 'sass:math';
+
+@function sqrt ($num) {
+  @return math.div(math.floor(math.sqrt($num) * 1000), 1000)
+}
+
+$bubble-padding-left: 15px;
+$bubble-border: 2px;
+
+.container {
+  position: absolute;
+  top: 20vh;
+  left: 50vw;
+  width: 520px;
+
+  color: #222222;
+
+  .bubbleHead {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 0.24px;
+
+    height: 0;
+    width: 0;
+
+    border-right: $bubble-padding-left solid rgba(255, 255, 255, 0.25);
+    border-top: $bubble-padding-left solid transparent;
+    border-bottom: $bubble-padding-left solid transparent;
+  }
+
+  .wrapper {
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.05);
+    border-radius: 10px;
+    left: $bubble-padding-left;
+    width: 100%;
+    min-height: 70px;
+    max-height: 600px;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow-y: scroll;
+
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+
+  }
+
+
+}

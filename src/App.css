@@ -1,38 +1,44 @@
 .App {
-  text-align: center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Scene {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-size: cover;
+    background: url("https://p1.meituan.net/travelcube/246f82eb66d59be7047d22172aecef952050592.png");
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Person {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Feedback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+
 }
 
-.App-link {
-  color: #61dafb;
+.Inflow {
+    position: absolute;
+    left: 25vw;
+    right: 25vw;
+    bottom: 2.5vh;
+    z-index: 4;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+

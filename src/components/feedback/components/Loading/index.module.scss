@@ -1,0 +1,31 @@
+.loading {
+  padding: 10px;
+  display: flex;
+
+
+  .loadingPoint {
+    background-color: #222222;
+    height: 8px;
+    width: 8px;
+    border-radius: 8px;
+    margin-right: 12px;
+  }
+  .loadingPoint1 {
+    animation: dot 1s infinite linear;
+  }
+  .loadingPoint2 {
+    animation: dot 1s linear infinite 250ms;
+  }
+  .loadingPoint3 {
+    animation: dot 1s linear infinite 500ms;
+  }
+
+  @keyframes dot {
+    0% { margin-top: 0 }
+    33% { margin-top: -10px }
+    100% { margin-bottom: -10px }
+  }
+
+
+
+}
