@@ -48,6 +48,10 @@ const getMeituanTTSAudio = (content: string) => {
     })
 }
 
+/**
+ * 文字转语音
+ * @param type aliyun、meituan，需要在对应云服务控制后台获取当日有效的token
+ */
 export const useGetAudio = (type: string = 'meituan') => {
 
     const [loading, setLoading] = useState(false)
