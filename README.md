@@ -1,7 +1,7 @@
 # 小明的吃货女友
 
 ### 2d虚拟人物:
-模型： [live2d](https://www.live2d.com/).（官方有很多示例模型，可以供大家学习使用。人物模型在public/Resources目录下）
+模型： [live2d](https://www.live2d.com/).（官方有很多[示例模型](https://www.live2d.com/en/download/sample-data/)，可以供大家学习使用。人物模型在public/Resources目录下）
 
 渲染： [pixi.js](https://pixijs.com/).
 
