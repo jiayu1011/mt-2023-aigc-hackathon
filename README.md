@@ -5,6 +5,8 @@
 
 渲染： [pixi.js](https://pixijs.com/).
 
+为了让大家更好的理解我们何如使用官网的模型实现当前的功能，做了哪些改动和优化，团队同学整理了一篇文档：[live2d&chatgpt](https://km.sankuai.com/collabpage/1702966805)
+
 ### 文字转语音：
 文字转语音可选择使用阿里云TTS或者美团TTS，如使用阿里云TTS：修改APP.tsx中的useGetAudio('aliyun')即可（默认为美团TTS），需要提前准备对应的APPKey和当日有效的Token，在configs/index.ts中配置。
 
