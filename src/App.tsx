@@ -115,7 +115,7 @@ const App: React.FC = () => {
                 initScene(pixi)
                 initLive2D(pixi)
             }} render={() => <>
-                <img src="/cat.gif" alt='cat' style={{zIndex: 1, position: "absolute", bottom: '10vh', left: '13vw', width: 250}}/>
+                <img src={`${process.env.PUBLIC_URL}/cat.gif`} alt='cat' style={{zIndex: 1, position: "absolute", bottom: '10vh', left: '13vw', width: 250}}/>
             </>}/>
 
             {
