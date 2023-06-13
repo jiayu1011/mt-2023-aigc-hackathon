@@ -17,7 +17,7 @@ export const useLive2DModel = () => {
     const init = async (pixiApp: PIXI.Application) => {
         if (!pixiApp) return
 
-        const model = await Live2DModel.from('/Resources/Hiyori/Hiyori.model3.json')
+        const model = await Live2DModel.from(process.env.REACT_APP_MODEL_PATH ?? '')
 
         console.log('model', model)
 
